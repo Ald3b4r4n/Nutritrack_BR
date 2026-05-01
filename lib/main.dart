@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nutritrack_br/core/routes/app_router.dart';
 import 'package:nutritrack_br/core/theme/app_theme.dart';
@@ -12,9 +13,7 @@ class NutriTrackApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const ProviderScope(
-      child: NutriTrackMaterialApp(),
-    );
+    return const ProviderScope(child: NutriTrackMaterialApp());
   }
 }
 
@@ -29,6 +28,13 @@ class NutriTrackMaterialApp extends StatelessWidget {
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       debugShowCheckedModeBanner: false,
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [Locale('pt', 'BR'), Locale('en')],
+      locale: const Locale('pt', 'BR'),
     );
   }
 }

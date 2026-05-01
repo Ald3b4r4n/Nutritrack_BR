@@ -75,7 +75,7 @@
   - **Arquivos-alvo**: `lib/presentation/widgets/`
   - **Dependências**: T010
   - **Critério de aceite**: Card de refeição base, botão primário, empty state ilustrativo criados.
-- [ ] **T012** Configurar i18n inicial (PT-BR)
+- [x] **T012** Configurar i18n inicial (PT-BR)
   - **Tipo**: Configuração
   - **Arquivos-alvo**: `lib/main.dart`, `l10n/`
   - **Dependências**: T011
@@ -85,29 +85,29 @@
 
 ## Fase 3 — Banco local Drift/SQLite e modelos de domínio
 
-- [ ] **T013** Criar Value Objects de Domínio
+- [x] **T013** Criar Value Objects de Domínio
   - **Tipo**: Implementação
   - **Arquivos-alvo**: `lib/domain/value_objects/`
   - **Dependências**: T005
   - **Critério de aceite**: VO de macros, porção e data criados (sem depender de Drift).
-- [ ] **T014** Criar Entidades de Domínio
+- [x] **T014** Criar Entidades de Domínio
   - **Tipo**: Implementação
   - **Arquivos-alvo**: `lib/domain/entities/`
   - **Dependências**: T013
   - **Critério de aceite**: Todas as 16 entidades listadas em `data-model.md` criadas.
-- [ ] **T015** [OBRIGATÓRIO] Testes do Banco Local Drift
+- [x] **T015** [OBRIGATÓRIO] Testes do Banco Local Drift
   - **Tipo**: Teste
   - **Arquivos-alvo**: `test/data/database/app_database_test.dart`
   - **Dependências**: T014
   - **Critério de aceite**: Inserção e recuperação de `FoodItem` testadas em memória. (Red)
   - **Comando**: `flutter test`
-- [ ] **T016** Implementar Banco Drift, Tabelas e DAOs
+- [x] **T016** Implementar Banco Drift, Tabelas e DAOs
   - **Tipo**: Implementação
   - **Arquivos-alvo**: `lib/data/database/`, `lib/data/daos/`
   - **Dependências**: T015
   - **Critério de aceite**: Schema criado com `drift`, DAOs funcionais passando nos testes de T015. (Green/Refactor)
   - **Comando**: `dart run build_runner build`
-- [ ] **T017** Implementar Mappers Domínio ↔ Drift
+- [x] **T017** Implementar Mappers Domínio ↔ Drift
   - **Tipo**: Implementação
   - **Arquivos-alvo**: `lib/data/mappers/`
   - **Dependências**: T016
