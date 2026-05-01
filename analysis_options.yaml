@@ -1,0 +1,57 @@
+# analysis_options.yaml
+# Configuração de linting rigorosa para NutriTrack BR MVP
+
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  plugins:
+    - custom_lint
+  exclude:
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+    - "lib/generated_plugin_registrant.dart"
+
+linter:
+  rules:
+    # Error Rules
+    - avoid_print
+    - always_use_package_imports
+    - avoid_empty_else
+    - avoid_slow_async_io
+    - avoid_type_to_string
+    - cancel_subscriptions
+    - close_sinks
+    - literal_only_boolean_expressions
+    - no_duplicate_case_values
+    - throw_in_finally
+    - valid_regexps
+    
+    # Style Rules
+    - always_declare_return_types
+    - annotate_overrides
+    - avoid_init_to_null
+    - avoid_redundant_argument_values
+    - avoid_return_types_on_setters
+    - avoid_shadowing_type_parameters
+    - camel_case_extensions
+    - camel_case_types
+    - cascade_invocations
+    - curly_braces_in_flow_control_structures
+    - empty_catches
+    - empty_constructor_bodies
+    - library_names
+    - library_prefixes
+    - non_constant_identifier_names
+    - prefer_const_constructors
+    - prefer_const_declarations
+    - prefer_final_locals
+    - prefer_is_empty
+    - prefer_is_not_empty
+    - prefer_single_quotes
+    - slash_for_doc_comments
+    - type_init_formals
+    - unawaited_futures
+    - unnecessary_const
+    - unnecessary_new
+    - unnecessary_this
+    - use_super_parameters
