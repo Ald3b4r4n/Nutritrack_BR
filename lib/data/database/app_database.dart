@@ -13,6 +13,7 @@ import 'package:nutritrack_br/data/database/tables/recent_foods_by_meal_table.da
 import 'package:nutritrack_br/data/database/tables/serving_sizes_table.dart';
 import 'package:nutritrack_br/data/database/tables/water_logs_table.dart';
 import 'package:nutritrack_br/data/database/tables/weight_logs_table.dart';
+import 'package:nutritrack_br/data/daos/meal_diary_dao.dart';
 
 part 'app_database.g.dart';
 
@@ -26,6 +27,9 @@ part 'app_database.g.dart';
     WaterLogs,
     WeightLogs,
     RecentFoodsByMeal,
+  ],
+  daos: [
+    MealDiaryDao,
   ],
 )
 class AppDatabase extends _$AppDatabase {

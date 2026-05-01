@@ -3017,6 +3017,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $WeightLogsTable weightLogs = $WeightLogsTable(this);
   late final $RecentFoodsByMealTable recentFoodsByMeal =
       $RecentFoodsByMealTable(this);
+  late final MealDiaryDao mealDiaryDao = MealDiaryDao(this as AppDatabase);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();

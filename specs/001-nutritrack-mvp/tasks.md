@@ -117,32 +117,32 @@
 
 ## Fase 4 — Diário alimentar
 
-- [ ] **T018** [OBRIGATÓRIO] Teste de Usecase: Adicionar/Editar Alimento na Refeição
+- [x] **T018** [OBRIGATÓRIO] Teste de Usecase: Adicionar/Editar Alimento na Refeição
   - **Tipo**: Teste
   - **Arquivos-alvo**: `test/application/usecases/meal_diary_usecases_test.dart`
   - **Dependências**: T017
   - **Critério de aceite**: Teste garantindo cálculo correto de macros ao adicionar alimento. (Red)
-- [ ] **T019** Implementar MealRepository e Usecases do Diário
+- [x] **T019** Implementar MealRepository e Usecases do Diário
   - **Tipo**: Implementação
   - **Arquivos-alvo**: `lib/data/repositories/`, `lib/application/usecases/diary/`
   - **Dependências**: T018
   - **Critério de aceite**: Usecases passando nos testes. (Green)
-- [ ] **T020** Implementar State Provider do Diário (Riverpod)
+- [x] **T020** Implementar State Provider do Diário (Riverpod)
   - **Tipo**: Implementação
   - **Arquivos-alvo**: `lib/application/providers/diary_provider.dart`
   - **Dependências**: T019
   - **Critério de aceite**: Provider reativo retornando estado das refeições do dia.
-- [ ] **T021** [OBRIGATÓRIO] Widget Test: Tela do Diário
+- [x] **T021** [OBRIGATÓRIO] Widget Test: Tela do Diário
   - **Tipo**: Teste
   - **Arquivos-alvo**: `test/widget/presentation/diary/diary_screen_test.dart`
   - **Dependências**: T020
   - **Critério de aceite**: Validar presença de Cafe, Almoco, Jantar, Lanches e botão "Adicionar". (Red)
-- [ ] **T022** Implementar Tela e Widgets do Diário Alimentar
+- [x] **T022** Implementar Tela e Widgets do Diário Alimentar
   - **Tipo**: Implementação
   - **Arquivos-alvo**: `lib/presentation/diary/`
   - **Dependências**: T021
   - **Critério de aceite**: Tela exibe refeições e macros diários; testes visuais passando. (Green)
-- [ ] **T023** Build APK de Validação (Diário)
+- [x] **T023** Build APK de Validação (Diário)
   - **Tipo**: Build
   - **Arquivos-alvo**: `build/app/outputs/flutter-apk/app-debug.apk`
   - **Dependências**: T022
