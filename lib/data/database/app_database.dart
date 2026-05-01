@@ -13,7 +13,15 @@ import 'package:nutritrack_br/data/database/tables/recent_foods_by_meal_table.da
 import 'package:nutritrack_br/data/database/tables/serving_sizes_table.dart';
 import 'package:nutritrack_br/data/database/tables/water_logs_table.dart';
 import 'package:nutritrack_br/data/database/tables/weight_logs_table.dart';
+import 'package:nutritrack_br/data/database/tables/meal_plan_days_table.dart';
+import 'package:nutritrack_br/data/database/tables/meal_plan_entries_table.dart';
+import 'package:nutritrack_br/data/database/tables/meal_plans_table.dart';
+import 'package:nutritrack_br/data/daos/barcode_dao.dart';
+import 'package:nutritrack_br/data/daos/food_dao.dart';
 import 'package:nutritrack_br/data/daos/meal_diary_dao.dart';
+import 'package:nutritrack_br/data/daos/meal_plan_dao.dart';
+import 'package:nutritrack_br/data/daos/water_dao.dart';
+import 'package:nutritrack_br/data/daos/weight_dao.dart';
 
 part 'app_database.g.dart';
 
@@ -27,9 +35,17 @@ part 'app_database.g.dart';
     WaterLogs,
     WeightLogs,
     RecentFoodsByMeal,
+    MealPlans,
+    MealPlanDays,
+    MealPlanEntries,
   ],
   daos: [
+    BarcodeDao,
+    FoodDao,
     MealDiaryDao,
+    MealPlanDao,
+    WaterDao,
+    WeightDao,
   ],
 )
 class AppDatabase extends _$AppDatabase {

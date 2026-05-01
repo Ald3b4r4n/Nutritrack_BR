@@ -48,7 +48,7 @@ final class AppDatabaseProvider
   }
 }
 
-String _$appDatabaseHash() => r'94e66955be5e7b5aea5b7dd6fc53478728bc43a3';
+String _$appDatabaseHash() => r'58e4a8db4e31a19100f6eb44b8704e5ec6bfb00c';
 
 @ProviderFor(mealRepository)
 final mealRepositoryProvider = MealRepositoryProvider._();
@@ -89,4 +89,45 @@ final class MealRepositoryProvider
   }
 }
 
-String _$mealRepositoryHash() => r'98f888e0c16f30134b002926c43a74323053d443';
+String _$mealRepositoryHash() => r'ae799c291a143a2e0a0fa15bccdb2c7c5c2edce0';
+
+@ProviderFor(foodRepository)
+final foodRepositoryProvider = FoodRepositoryProvider._();
+
+final class FoodRepositoryProvider
+    extends $FunctionalProvider<FoodRepository, FoodRepository, FoodRepository>
+    with $Provider<FoodRepository> {
+  FoodRepositoryProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'foodRepositoryProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$foodRepositoryHash();
+
+  @$internal
+  @override
+  $ProviderElement<FoodRepository> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  FoodRepository create(Ref ref) {
+    return foodRepository(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(FoodRepository value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<FoodRepository>(value),
+    );
+  }
+}
+
+String _$foodRepositoryHash() => r'86aa6f12c31d9e1834d9a8000de5f2846e27a483';

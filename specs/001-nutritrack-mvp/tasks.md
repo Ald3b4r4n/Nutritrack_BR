@@ -153,37 +153,37 @@
 
 ## Fase 5 — Busca/cadastro de alimentos e fontes nutricionais
 
-- [ ] **T024** [OBRIGATÓRIO] Teste de Usecase: Buscar e Filtrar Alimentos (TBCA/USDA/Proprietário)
+- [x] **T024** [OBRIGATÓRIO] Teste de Usecase: Buscar e Filtrar Alimentos (TBCA/USDA/Proprietário)
   - **Tipo**: Teste
   - **Arquivos-alvo**: `test/application/usecases/food_search_usecases_test.dart`
   - **Dependências**: T017
   - **Critério de aceite**: Busca retorna mock filtrado por origem e nome. (Red)
-- [ ] **T025** [OBRIGATÓRIO] Teste de Usecase: Cadastrar Alimento Customizado
+- [x] **T025** [OBRIGATÓRIO] Teste de Usecase: Cadastrar Alimento Customizado
   - **Tipo**: Teste
   - **Arquivos-alvo**: `test/application/usecases/food_create_usecase_test.dart`
   - **Dependências**: T017
   - **Critério de aceite**: Garantir salvamento de FoodSource.custom e macros corretos. (Red)
-- [ ] **T026** Implementar Repositório e Usecases de Alimentos
+- [x] **T026** Implementar Repositório e Usecases de Alimentos
   - **Tipo**: Implementação
   - **Arquivos-alvo**: `lib/data/repositories/`, `lib/application/usecases/food/`
   - **Dependências**: T024, T025
   - **Critério de aceite**: Usecases aprovados nos testes, usando SQLite (FTS se necessário). (Green)
-- [ ] **T027** Implementar Seed/Importador Conceitual Inicial
+- [x] **T027** Implementar Seed/Importador Conceitual Inicial
   - **Tipo**: Implementação
   - **Arquivos-alvo**: `lib/data/database/seeds.dart`
   - **Dependências**: T026
   - **Critério de aceite**: Mock script que popula alimentos do USDA/TBCA localmente ao iniciar.
-- [ ] **T028** [OBRIGATÓRIO] Widget Test: Tela de Busca e Cadastro
+- [x] **T028** [OBRIGATÓRIO] Widget Test: Tela de Busca e Cadastro
   - **Tipo**: Teste
   - **Arquivos-alvo**: `test/widget/presentation/search/food_search_screen_test.dart`
   - **Dependências**: T027
   - **Critério de aceite**: Campo de busca e formulário de cadastro testados. (Red)
-- [ ] **T029** Implementar Tela de Busca e Cadastro de Alimentos
+- [x] **T029** Implementar Tela de Busca e Cadastro de Alimentos
   - **Tipo**: Implementação
   - **Arquivos-alvo**: `lib/presentation/search/`
   - **Dependências**: T028
   - **Critério de aceite**: Interface renderiza lista, badges de fonte e botão "Criar novo". Fluxo atrelado ao Diário Alimentar (T022). (Green)
-- [ ] **T030** Build APK de Validação (Busca/Cadastro)
+- [x] **T030** Build APK de Validação (Busca/Cadastro)
   - **Tipo**: Build
   - **Arquivos-alvo**: `build/app/outputs/flutter-apk/app-debug.apk`
   - **Dependências**: T029
@@ -193,27 +193,27 @@
 
 ## Fase 6 — Código de barras
 
-- [ ] **T031** [OBRIGATÓRIO] Teste de Integração: Scanner Mockado
+- [x] **T031** [OBRIGATÓRIO] Teste de Integração: Scanner Mockado
   - **Tipo**: Teste
   - **Arquivos-alvo**: `test/application/services/barcode_scanner_test.dart`
   - **Dependências**: T029
   - **Critério de aceite**: Testar sucesso (retorna código) e falha (permissão ou erro). (Red)
-- [ ] **T032** Implementar Adapter de mobile_scanner
+- [x] **T032** Implementar Adapter de mobile_scanner
   - **Tipo**: Implementação
   - **Arquivos-alvo**: `lib/infrastructure/scanner/mobile_scanner_adapter.dart`
   - **Dependências**: T031
   - **Critério de aceite**: Encapsulamento da lib externa. Testes passam com mock. (Green)
-- [ ] **T033** Implementar Lógica de Vínculo de Barcode (Usecase)
+- [x] **T033** Implementar Lógica de Vínculo de Barcode (Usecase)
   - **Tipo**: Implementação
   - **Arquivos-alvo**: `lib/application/usecases/food/link_barcode_usecase.dart`
   - **Dependências**: T032
   - **Critério de aceite**: Usecase vincula código EAN a um alimento do banco local.
-- [ ] **T034** Implementar Tela de Câmera/Leitura
+- [x] **T034** Implementar Tela de Câmera/Leitura
   - **Tipo**: Implementação
   - **Arquivos-alvo**: `lib/presentation/scanner/`
   - **Dependências**: T033
   - **Critério de aceite**: Tela com overlay de scanner e tratamento de permissões. Fluxo para cadastro rápido caso não ache o código na base.
-- [ ] **T035** Build APK de Validação (Scanner)
+- [x] **T035** Build APK de Validação (Scanner)
   - **Tipo**: Build
   - **Arquivos-alvo**: `build/app/outputs/flutter-apk/app-debug.apk`
   - **Dependências**: T034
@@ -223,17 +223,17 @@
 
 ## Fase 7 — Água
 
-- [ ] **T036** [OBRIGATÓRIO] Teste de Usecase: Registro e Meta de Água
+- [x] **T036** [OBRIGATÓRIO] Teste de Usecase: Registro e Meta de Água
   - **Tipo**: Teste
   - **Arquivos-alvo**: `test/application/usecases/water_usecases_test.dart`
   - **Dependências**: T017
   - **Critério de aceite**: Testar soma de registros diários (ex: 200ml + 300ml) contra a meta. (Red)
-- [ ] **T037** Implementar Usecases e Repositório de Água
+- [x] **T037** Implementar Usecases e Repositório de Água
   - **Tipo**: Implementação
   - **Arquivos-alvo**: `lib/data/repositories/`, `lib/application/usecases/water/`
   - **Dependências**: T036
   - **Critério de aceite**: Integração testada com Drift. (Green)
-- [ ] **T038** Implementar Tela/Widget de Água
+- [x] **T038** Implementar Tela/Widget de Água
   - **Tipo**: Implementação
   - **Arquivos-alvo**: `lib/presentation/water/`
   - **Dependências**: T037
@@ -243,22 +243,22 @@
 
 ## Fase 8 — Peso e evolução
 
-- [ ] **T039** [OBRIGATÓRIO] Teste de Usecase: Histórico de Peso
+- [x] **T039** [OBRIGATÓRIO] Teste de Usecase: Histórico de Peso
   - **Tipo**: Teste
   - **Arquivos-alvo**: `test/application/usecases/weight_usecases_test.dart`
   - **Dependências**: T017
   - **Critério de aceite**: Testar listagem ordenada e cálculo de tendência não-punitiva. (Red)
-- [ ] **T040** Implementar Usecases e Repositório de Peso
+- [x] **T040** Implementar Usecases e Repositório de Peso
   - **Tipo**: Implementação
   - **Arquivos-alvo**: `lib/application/usecases/weight/`
   - **Dependências**: T039
   - **Critério de aceite**: Dados inseridos no SQLite com sucesso. (Green)
-- [ ] **T041** Implementar Tela de Peso e Gráfico
+- [x] **T041** Implementar Tela de Peso e Gráfico
   - **Tipo**: Implementação
   - **Arquivos-alvo**: `lib/presentation/weight/`
   - **Dependências**: T040
   - **Critério de aceite**: Apresentar gráfico simples de tendência temporal. Textos informativos de IMC formatados corretamente.
-- [ ] **T042** Build APK de Validação (Água e Peso)
+- [x] **T042** Build APK de Validação (Água e Peso)
   - **Tipo**: Build
   - **Arquivos-alvo**: `build/app/outputs/flutter-apk/app-debug.apk`
   - **Dependências**: T038, T041
@@ -268,17 +268,17 @@
 
 ## Fase 9 — Planos alimentares simples
 
-- [ ] **T043** [OBRIGATÓRIO] Teste de Usecase: Criação de Plano e Metas
+- [x] **T043** [OBRIGATÓRIO] Teste de Usecase: Criação de Plano e Metas
   - **Tipo**: Teste
   - **Arquivos-alvo**: `test/application/usecases/meal_plan_test.dart`
   - **Dependências**: T017
   - **Critério de aceite**: Testar gravação de templates por refeição e aplicação a dia da semana. (Red)
-- [ ] **T044** Implementar Usecases de Planos Alimentares
+- [x] **T044** Implementar Usecases de Planos Alimentares
   - **Tipo**: Implementação
   - **Arquivos-alvo**: `lib/application/usecases/plan/`
   - **Dependências**: T043
   - **Critério de aceite**: Regras de negócio de aderência e ativação de templates funcionais. (Green)
-- [ ] **T045** Implementar Telas de Planos
+- [x] **T045** Implementar Telas de Planos
   - **Tipo**: Implementação
   - **Arquivos-alvo**: `lib/presentation/plans/`
   - **Dependências**: T044
@@ -288,12 +288,12 @@
 
 ## Fase 10 — Dashboard
 
-- [ ] **T046** [OBRIGATÓRIO] Teste Integrado: Agregação do Dashboard Diário
+- [x] **T046** [OBRIGATÓRIO] Teste Integrado: Agregação do Dashboard Diário
   - **Tipo**: Teste
   - **Arquivos-alvo**: `test/application/providers/dashboard_provider_test.dart`
   - **Dependências**: T020, T037, T040, T044
   - **Critério de aceite**: Verificar junção dos streams de calorias, água e peso num único state. (Red)
-- [ ] **T047** Implementar Dashboard Provider (Riverpod)
+- [x] **T047** Implementar Dashboard Provider (Riverpod)
   - **Tipo**: Implementação
   - **Arquivos-alvo**: `lib/application/providers/dashboard_provider.dart`
   - **Dependências**: T046
