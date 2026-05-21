@@ -12,7 +12,9 @@ class MealRepositoryImpl implements MealRepository {
 
   @override
   Future<Either<Failure, MealEntry>> addMealEntry(
-      MealEntry entry, DateTime date) async {
+    MealEntry entry,
+    DateTime date,
+  ) async {
     try {
       final saved = await dao.addEntry(entry, date);
       return Right(saved);
@@ -23,7 +25,8 @@ class MealRepositoryImpl implements MealRepository {
 
   @override
   Future<Either<Failure, List<MealEntryDetails>>> getDailyMeals(
-      DateTime date) async {
+    DateTime date,
+  ) async {
     try {
       final meals = await dao.getDailyMeals(date);
       return Right(meals);

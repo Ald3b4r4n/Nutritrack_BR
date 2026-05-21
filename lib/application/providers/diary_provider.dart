@@ -30,7 +30,7 @@ class DiaryNotifier extends _$DiaryNotifier {
     final repo = ref.read(mealRepositoryProvider);
     final usecase = AddMealEntryUseCase(repo);
     final result = await usecase(entry: entry, date: date);
-    
+
     if (result.isRight()) {
       // Recarrega o estado em vez de adicionar localmente (pois precisamos do FoodItem pra calcular o details)
       ref.invalidateSelf();

@@ -1,12 +1,15 @@
 # Quickstart: NutriTrack BR MVP
 
 ## Pré-requisitos
-- Flutter SDK (stable >= 3.0.0)
-- Dart SDK (com null safety habilitado)
+- Flutter SDK (stable >= 3.0.0) instalado em `C:\flutter`
+- Android SDK instalado em `D:\Android_SDK`
+- Java JDK 17 instalado em `D:\Android_SDK\jdk17`
 - Ambiente de desenvolvimento configurado (Android Studio ou VS Code)
 - Emulador Android ou dispositivo físico para testes e builds
 - Recomendado: Skill `devcontainer-setup` (Antigravity) instalada.
 
+> [!NOTE]
+> **Ambiente Validado**: O Flutter, o Android SDK e o JDK 17 foram configurados corretamente nos caminhos acima. As variáveis de ambiente `ANDROID_HOME` e `JAVA_HOME` estão apontando para o disco `D:`.
 ## Comandos de Instalação
 ```bash
 flutter clean

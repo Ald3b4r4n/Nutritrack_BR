@@ -13,6 +13,9 @@ part 'dashboard_provider.g.dart';
 class DashboardSummary {
   final double consumedCalories;
   final double targetCalories;
+  final double consumedProtein;
+  final double consumedCarbs;
+  final double consumedFat;
   final int consumedWaterMl;
   final int targetWaterMl;
   final double? currentWeightKg;
@@ -20,6 +23,9 @@ class DashboardSummary {
   DashboardSummary({
     required this.consumedCalories,
     required this.targetCalories,
+    this.consumedProtein = 0,
+    this.consumedCarbs = 0,
+    this.consumedFat = 0,
     required this.consumedWaterMl,
     required this.targetWaterMl,
     this.currentWeightKg,
@@ -55,21 +61,32 @@ Future<DashboardSummary> dashboardSummary(Ref ref, DateTime date) async {
       (d) => d.dayOfWeek == weekday,
       orElse: () => planState.days.first,
     );
-    final dayEntries = planState.entries.where((e) => e.mealPlanDayId == planDay.id).toList();
+    final dayEntries = planState.entries
+        .where((e) => e.mealPlanDayId == planDay.id)
+        .toList();
     targetCals = dayEntries.fold<double>(0, (sum, e) => sum + e.targetCalories);
   }
 
-  // 4. Calorias consumidas (agregando do diário)
+  // 4. Calorias e macros consumidos (agregando do diário)
   final mealDao = MealDiaryDao(db);
   final dailyMeals = await mealDao.getDailyMeals(date);
   double totalCals = 0;
+  double totalProtein = 0;
+  double totalCarbs = 0;
+  double totalFat = 0;
   for (final meal in dailyMeals) {
     totalCals += meal.calories;
+    totalProtein += meal.protein;
+    totalCarbs += meal.carbohydrates; // MealEntryDetails.carbohydrates
+    totalFat += meal.fat;
   }
 
   return DashboardSummary(
     consumedCalories: totalCals,
     targetCalories: targetCals,
+    consumedProtein: totalProtein,
+    consumedCarbs: totalCarbs,
+    consumedFat: totalFat,
     consumedWaterMl: totalWater,
     targetWaterMl: 2000,
     currentWeightKg: currentWeight,

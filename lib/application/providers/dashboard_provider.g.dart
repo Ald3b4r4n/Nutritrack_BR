@@ -64,7 +64,7 @@ final class DashboardSummaryProvider
   }
 }
 
-String _$dashboardSummaryHash() => r'7e27443e4e37086ae687462bc9181df313567f22';
+String _$dashboardSummaryHash() => r'af785b70e25d2d23db6e9ad6d7ce48207136c860';
 
 final class DashboardSummaryFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<DashboardSummary>, DateTime> {

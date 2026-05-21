@@ -68,27 +68,27 @@ void main() {
       final result = await repository.searchFoods('arroz');
 
       expect(result.isRight(), true);
-      result.fold(
-        (l) => fail('should be right'),
-        (foods) {
-          expect(foods.length, 1);
-          expect(foods.first.name, 'Arroz branco cozido');
-          expect(foods.first.source, FoodSource.tbca);
-        },
-      );
+      result.fold((l) => fail('should be right'), (foods) {
+        expect(foods.length, 1);
+        expect(foods.first.name, 'Arroz branco cozido');
+        expect(foods.first.source, FoodSource.tbca);
+      });
     });
 
-    test('deve retornar lista vazia quando nenhum alimento corresponder', () async {
-      await repository.createFood(tArroz);
+    test(
+      'deve retornar lista vazia quando nenhum alimento corresponder',
+      () async {
+        await repository.createFood(tArroz);
 
-      final result = await repository.searchFoods('xyz');
+        final result = await repository.searchFoods('xyz');
 
-      expect(result.isRight(), true);
-      result.fold(
-        (l) => fail('should be right'),
-        (foods) => expect(foods, isEmpty),
-      );
-    });
+        expect(result.isRight(), true);
+        result.fold(
+          (l) => fail('should be right'),
+          (foods) => expect(foods, isEmpty),
+        );
+      },
+    );
 
     test('deve filtrar por fonte TBCA', () async {
       await repository.createFood(tArroz);
@@ -98,32 +98,25 @@ void main() {
       final result = await repository.searchFoods('', source: FoodSource.tbca);
 
       expect(result.isRight(), true);
-      result.fold(
-        (l) => fail('should be right'),
-        (foods) {
-          expect(foods.length, 2);
-          for (final f in foods) {
-            expect(f.source, FoodSource.tbca);
-          }
-        },
-      );
+      result.fold((l) => fail('should be right'), (foods) {
+        expect(foods.length, 2);
+        for (final f in foods) {
+          expect(f.source, FoodSource.tbca);
+        }
+      });
     });
 
     test('deve filtrar por fonte USDA', () async {
       await repository.createFood(tArroz);
       await repository.createFood(tChicken);
 
-      final result =
-          await repository.searchFoods('', source: FoodSource.usda);
+      final result = await repository.searchFoods('', source: FoodSource.usda);
 
       expect(result.isRight(), true);
-      result.fold(
-        (l) => fail('should be right'),
-        (foods) {
-          expect(foods.length, 1);
-          expect(foods.first.source, FoodSource.usda);
-        },
-      );
+      result.fold((l) => fail('should be right'), (foods) {
+        expect(foods.length, 1);
+        expect(foods.first.source, FoodSource.usda);
+      });
     });
 
     test('deve atualizar um alimento existente', () async {
@@ -144,14 +137,11 @@ void main() {
 
       final result = await repository.getFoodById('tbca-001');
       expect(result.isRight(), true);
-      result.fold(
-        (l) => fail('should be right'),
-        (food) {
-          expect(food.name, 'Arroz integral cozido');
-          expect(food.nutrients.calories, 124);
-          expect(food.nutrients.fiber, 2.7);
-        },
-      );
+      result.fold((l) => fail('should be right'), (food) {
+        expect(food.name, 'Arroz integral cozido');
+        expect(food.nutrients.calories, 124);
+        expect(food.nutrients.fiber, 2.7);
+      });
     });
 
     test('deve cadastrar alimento custom e preservar fonte', () async {
@@ -172,13 +162,10 @@ void main() {
 
       final result = await repository.getFoodById('custom-001');
       expect(result.isRight(), true);
-      result.fold(
-        (l) => fail('should be right'),
-        (food) {
-          expect(food.source, FoodSource.custom);
-          expect(food.source.label, 'Personalizado');
-        },
-      );
+      result.fold((l) => fail('should be right'), (food) {
+        expect(food.source, FoodSource.custom);
+        expect(food.source.label, 'Personalizado');
+      });
     });
 
     test('deve retornar falha para alimento não encontrado por id', () async {

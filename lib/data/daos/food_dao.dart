@@ -20,8 +20,7 @@ class FoodDao extends DatabaseAccessor<AppDatabase> with _$FoodDaoMixin {
     String query, {
     FoodSource? source,
   }) async {
-    final q = select(foodItems)
-      ..where((t) => t.isDeleted.equals(false));
+    final q = select(foodItems)..where((t) => t.isDeleted.equals(false));
 
     if (query.isNotEmpty) {
       q.where((t) => t.name.like('%$query%'));
@@ -45,15 +44,17 @@ class FoodDao extends DatabaseAccessor<AppDatabase> with _$FoodDaoMixin {
 
   /// Atualiza um alimento existente.
   Future<domain.FoodItem> updateFood(domain.FoodItem food) async {
-    await (update(foodItems)..where((t) => t.id.equals(food.id)))
-        .write(FoodItemMapper.toCompanion(food));
+    await (update(foodItems)..where((t) => t.id.equals(food.id))).write(
+      FoodItemMapper.toCompanion(food),
+    );
     return food;
   }
 
   /// Obtém um alimento pelo id.
   Future<domain.FoodItem?> getFoodById(String id) async {
-    final row = await (select(foodItems)..where((t) => t.id.equals(id)))
-        .getSingleOrNull();
+    final row = await (select(
+      foodItems,
+    )..where((t) => t.id.equals(id))).getSingleOrNull();
     return row == null ? null : FoodItemMapper.toDomain(row);
   }
 

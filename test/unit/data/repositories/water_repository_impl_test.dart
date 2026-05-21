@@ -59,24 +59,24 @@ void main() {
 
       final result = await repository.getDailyWaterLogs(tDate);
       expect(result.isRight(), true);
-      result.fold(
-        (l) => fail('should be right'),
-        (logs) {
-          final total = logs.fold<int>(0, (sum, l) => sum + l.amountMl);
-          expect(total, 500);
-          expect(logs.length, 2);
-        },
-      );
+      result.fold((l) => fail('should be right'), (logs) {
+        final total = logs.fold<int>(0, (sum, l) => sum + l.amountMl);
+        expect(total, 500);
+        expect(logs.length, 2);
+      });
     });
 
-    test('deve retornar lista vazia quando não houver registros no dia', () async {
-      final result = await repository.getDailyWaterLogs(tDate);
-      expect(result.isRight(), true);
-      result.fold(
-        (l) => fail('should be right'),
-        (logs) => expect(logs, isEmpty),
-      );
-    });
+    test(
+      'deve retornar lista vazia quando não houver registros no dia',
+      () async {
+        final result = await repository.getDailyWaterLogs(tDate);
+        expect(result.isRight(), true);
+        result.fold(
+          (l) => fail('should be right'),
+          (logs) => expect(logs, isEmpty),
+        );
+      },
+    );
 
     test('deve remover um registro de água', () async {
       final log = WaterLog(

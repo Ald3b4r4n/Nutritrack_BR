@@ -16,14 +16,20 @@ abstract class MealPlanRepository {
   Future<Either<Failure, List<MealPlan>>> getAllMealPlans();
 
   /// Salva ou atualiza os dias associados a um plano.
-  Future<Either<Failure, List<MealPlanDay>>> saveMealPlanDays(List<MealPlanDay> days);
+  Future<Either<Failure, List<MealPlanDay>>> saveMealPlanDays(
+    List<MealPlanDay> days,
+  );
 
   /// Obtém os dias associados a um plano.
   Future<Either<Failure, List<MealPlanDay>>> getMealPlanDays(String mealPlanId);
 
   /// Salva ou atualiza as entradas (metas por refeição) de um dia.
-  Future<Either<Failure, List<MealPlanEntry>>> saveMealPlanEntries(List<MealPlanEntry> entries);
+  Future<Either<Failure, List<MealPlanEntry>>> saveMealPlanEntries(
+    List<MealPlanEntry> entries,
+  );
 
   /// Obtém as entradas de um dia específico do plano.
-  Future<Either<Failure, List<MealPlanEntry>>> getMealPlanEntries(String mealPlanDayId);
+  Future<Either<Failure, List<MealPlanEntry>>> getMealPlanEntries(
+    String mealPlanDayId,
+  );
 }

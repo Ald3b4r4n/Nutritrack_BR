@@ -19,10 +19,7 @@ class ActiveMealPlanNotifier extends _$ActiveMealPlanNotifier {
     final repo = MealPlanRepositoryImpl(MealPlanDao(db));
     final usecase = GetActiveMealPlanUseCase(repo);
     final result = await usecase();
-    return result.fold(
-      (l) => throw Exception(l.message),
-      (r) => r,
-    );
+    return result.fold((l) => throw Exception(l.message), (r) => r);
   }
 
   Future<void> saveNewPlan(FullMealPlan plan) async {

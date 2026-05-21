@@ -21,10 +21,7 @@ class WaterNotifier extends _$WaterNotifier {
     final repo = WaterRepositoryImpl(WaterDao(db));
     final usecase = GetDailyWaterLogsUseCase(repo);
     final result = await usecase(d);
-    return result.fold(
-      (l) => throw Exception(l.message),
-      (r) => r,
-    );
+    return result.fold((l) => throw Exception(l.message), (r) => r);
   }
 
   Future<void> addWater(int amountMl) async {

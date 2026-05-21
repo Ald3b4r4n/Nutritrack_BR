@@ -43,7 +43,9 @@ class MealPlanRepositoryImpl implements MealPlanRepository {
   }
 
   @override
-  Future<Either<Failure, List<MealPlanDay>>> saveMealPlanDays(List<MealPlanDay> days) async {
+  Future<Either<Failure, List<MealPlanDay>>> saveMealPlanDays(
+    List<MealPlanDay> days,
+  ) async {
     try {
       final saved = await dao.upsertMealPlanDays(days);
       return Right(saved);
@@ -53,7 +55,9 @@ class MealPlanRepositoryImpl implements MealPlanRepository {
   }
 
   @override
-  Future<Either<Failure, List<MealPlanDay>>> getMealPlanDays(String mealPlanId) async {
+  Future<Either<Failure, List<MealPlanDay>>> getMealPlanDays(
+    String mealPlanId,
+  ) async {
     try {
       final days = await dao.getMealPlanDays(mealPlanId);
       return Right(days);
@@ -63,7 +67,9 @@ class MealPlanRepositoryImpl implements MealPlanRepository {
   }
 
   @override
-  Future<Either<Failure, List<MealPlanEntry>>> saveMealPlanEntries(List<MealPlanEntry> entries) async {
+  Future<Either<Failure, List<MealPlanEntry>>> saveMealPlanEntries(
+    List<MealPlanEntry> entries,
+  ) async {
     try {
       final saved = await dao.upsertMealPlanEntries(entries);
       return Right(saved);
@@ -73,7 +79,9 @@ class MealPlanRepositoryImpl implements MealPlanRepository {
   }
 
   @override
-  Future<Either<Failure, List<MealPlanEntry>>> getMealPlanEntries(String mealPlanDayId) async {
+  Future<Either<Failure, List<MealPlanEntry>>> getMealPlanEntries(
+    String mealPlanDayId,
+  ) async {
     try {
       final entries = await dao.getMealPlanEntries(mealPlanDayId);
       return Right(entries);

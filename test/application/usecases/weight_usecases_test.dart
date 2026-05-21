@@ -31,19 +31,17 @@ void main() {
         date: DateTime(2023, 10, 10),
       );
 
-      when(() => mockRepository.addWeightLog(any()))
-          .thenAnswer((_) async => Right(tLog));
+      when(
+        () => mockRepository.addWeightLog(any()),
+      ).thenAnswer((_) async => Right(tLog));
 
       final result = await addUseCase(tLog);
 
       expect(result.isRight(), true);
-      result.fold(
-        (l) => fail('should be right'),
-        (log) {
-          expect(log.weightKg, 72.5);
-          expect(log.date, DateTime(2023, 10, 10));
-        },
-      );
+      result.fold((l) => fail('should be right'), (log) {
+        expect(log.weightKg, 72.5);
+        expect(log.date, DateTime(2023, 10, 10));
+      });
     });
 
     test('deve retornar histórico ordenado por data', () async {
@@ -53,20 +51,18 @@ void main() {
         WeightLog(id: 'wt1', weightKg: 72.5, date: DateTime(2023, 10, 10)),
       ];
 
-      when(() => mockRepository.getWeightHistory())
-          .thenAnswer((_) async => Right(logs));
+      when(
+        () => mockRepository.getWeightHistory(),
+      ).thenAnswer((_) async => Right(logs));
 
       final result = await getHistoryUseCase();
 
       expect(result.isRight(), true);
-      result.fold(
-        (l) => fail('should be right'),
-        (history) {
-          expect(history.length, 3);
-          // Mais recente primeiro
-          expect(history.first.date.isAfter(history.last.date), true);
-        },
-      );
+      result.fold((l) => fail('should be right'), (history) {
+        expect(history.length, 3);
+        // Mais recente primeiro
+        expect(history.first.date.isAfter(history.last.date), true);
+      });
     });
 
     test('deve calcular tendência simples (diferença primeiro-último)', () async {
@@ -76,18 +72,16 @@ void main() {
         WeightLog(id: 'wt1', weightKg: 72.5, date: DateTime(2023, 10, 10)),
       ];
 
-      when(() => mockRepository.getWeightHistory())
-          .thenAnswer((_) async => Right(logs));
+      when(
+        () => mockRepository.getWeightHistory(),
+      ).thenAnswer((_) async => Right(logs));
 
       final result = await getHistoryUseCase();
-      result.fold(
-        (l) => fail('should be right'),
-        (history) {
-          // Tendência = último registro (mais recente) - primeiro registro (mais antigo)
-          final trend = history.first.weightKg - history.last.weightKg;
-          expect(trend, closeTo(-1.5, 0.01));
-        },
-      );
+      result.fold((l) => fail('should be right'), (history) {
+        // Tendência = último registro (mais recente) - primeiro registro (mais antigo)
+        final trend = history.first.weightKg - history.last.weightKg;
+        expect(trend, closeTo(-1.5, 0.01));
+      });
     });
 
     test('deve calcular IMC como informação auxiliar neutra', () async {
@@ -111,8 +105,9 @@ void main() {
     });
 
     test('deve retornar lista vazia quando não houver registros', () async {
-      when(() => mockRepository.getWeightHistory())
-          .thenAnswer((_) async => const Right([]));
+      when(
+        () => mockRepository.getWeightHistory(),
+      ).thenAnswer((_) async => const Right([]));
 
       final result = await getHistoryUseCase();
       expect(result.isRight(), true);

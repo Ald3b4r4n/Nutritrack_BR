@@ -82,8 +82,11 @@ class _BarcodeScannerScreenState extends ConsumerState<BarcodeScannerScreen> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Icon(Icons.camera_alt_outlined,
-                          size: 64, color: Colors.grey),
+                      const Icon(
+                        Icons.camera_alt_outlined,
+                        size: 64,
+                        color: Colors.grey,
+                      ),
                       const SizedBox(height: 16),
                       Text(
                         'Não foi possível acessar a câmera.\n'

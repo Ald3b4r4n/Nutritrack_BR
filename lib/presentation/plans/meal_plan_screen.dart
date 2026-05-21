@@ -21,8 +21,11 @@ class MealPlanScreen extends ConsumerWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.event_note,
-                      size: 64, color: theme.colorScheme.onSurfaceVariant),
+                  Icon(
+                    Icons.event_note,
+                    size: 64,
+                    color: theme.colorScheme.onSurfaceVariant,
+                  ),
                   const SizedBox(height: 16),
                   Text(
                     'Você ainda não tem um plano ativo.',
@@ -68,7 +71,9 @@ class MealPlanScreen extends ConsumerWidget {
                 child: ListTile(
                   leading: const Icon(Icons.calendar_month),
                   title: Text('${fullPlan.days.length} dias configurados'),
-                  subtitle: Text('${fullPlan.entries.length} refeições planejadas no total'),
+                  subtitle: Text(
+                    '${fullPlan.entries.length} refeições planejadas no total',
+                  ),
                   trailing: const Icon(Icons.chevron_right),
                   onTap: () {
                     // TODO: Expandir detalhes do plano
@@ -79,7 +84,8 @@ class MealPlanScreen extends ConsumerWidget {
           );
         },
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (err, _) => Center(child: Text('Erro ao carregar o plano: $err')),
+        error: (err, _) =>
+            Center(child: Text('Erro ao carregar o plano: $err')),
       ),
     );
   }

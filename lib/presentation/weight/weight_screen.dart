@@ -29,9 +29,11 @@ class WeightScreen extends ConsumerWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(Icons.show_chart,
-                        size: 48,
-                        color: theme.colorScheme.onSurfaceVariant),
+                    Icon(
+                      Icons.show_chart,
+                      size: 48,
+                      color: theme.colorScheme.onSurfaceVariant,
+                    ),
                     const SizedBox(height: 8),
                     Text(
                       'Gráfico de tendência',
@@ -74,10 +76,7 @@ class WeightScreen extends ConsumerWidget {
               ),
             ),
             const SizedBox(height: 24),
-            Text(
-              'Histórico recente',
-              style: theme.textTheme.titleMedium,
-            ),
+            Text('Histórico recente', style: theme.textTheme.titleMedium),
             const SizedBox(height: 8),
             // Placeholder para lista de registros
             Expanded(
@@ -98,6 +97,7 @@ class WeightScreen extends ConsumerWidget {
         onPressed: () {
           // Futura navegação para formulário de registro
         },
+        tooltip: 'Registrar peso',
         child: const Icon(Icons.add),
       ),
     );

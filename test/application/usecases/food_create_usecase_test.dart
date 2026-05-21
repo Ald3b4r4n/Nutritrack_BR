@@ -47,16 +47,17 @@ void main() {
       ),
     );
 
-    test('deve cadastrar alimento com FoodSource.custom e macros corretos', () async {
-      when(() => mockRepository.createFood(any()))
-          .thenAnswer((_) async => const Right(tCustomFood));
+    test(
+      'deve cadastrar alimento com FoodSource.custom e macros corretos',
+      () async {
+        when(
+          () => mockRepository.createFood(any()),
+        ).thenAnswer((_) async => const Right(tCustomFood));
 
-      final result = await useCase(tCustomFood);
+        final result = await useCase(tCustomFood);
 
-      expect(result.isRight(), true);
-      result.fold(
-        (l) => fail('should be right'),
-        (food) {
+        expect(result.isRight(), true);
+        result.fold((l) => fail('should be right'), (food) {
           expect(food.source, FoodSource.custom);
           expect(food.name, 'Pão de queijo caseiro');
           expect(food.nutrients.calories, 363);
@@ -64,24 +65,22 @@ void main() {
           expect(food.nutrients.carbohydrates, 34.0);
           expect(food.nutrients.fat, 23.0);
           expect(food.nutrients.fiber, 0.5);
-        },
-      );
-      verify(() => mockRepository.createFood(tCustomFood)).called(1);
-    });
+        });
+        verify(() => mockRepository.createFood(tCustomFood)).called(1);
+      },
+    );
 
     test('deve preservar metadados de fonte no alimento salvo', () async {
-      when(() => mockRepository.createFood(any()))
-          .thenAnswer((_) async => const Right(tCustomFood));
+      when(
+        () => mockRepository.createFood(any()),
+      ).thenAnswer((_) async => const Right(tCustomFood));
 
       final result = await useCase(tCustomFood);
 
-      result.fold(
-        (l) => fail('should be right'),
-        (food) {
-          expect(food.source, FoodSource.custom);
-          expect(food.source.label, 'Personalizado');
-        },
-      );
+      result.fold((l) => fail('should be right'), (food) {
+        expect(food.source, FoodSource.custom);
+        expect(food.source.label, 'Personalizado');
+      });
     });
   });
 }

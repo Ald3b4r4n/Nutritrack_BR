@@ -34,16 +34,19 @@ void main() {
       createdAt: DateTime.now(),
     );
 
-    test('deve retornar falha se o food_item não existir ao tentar buscar daily meals', () async {
-      // Como não inserimos o FoodItem 'f1', ele não conseguirá retornar os Details.
-      // Primeiro inserimos só no DAO a entrada para simular
-      await repository.addMealEntry(tEntry, tDate);
+    test(
+      'deve retornar falha se o food_item não existir ao tentar buscar daily meals',
+      () async {
+        // Como não inserimos o FoodItem 'f1', ele não conseguirá retornar os Details.
+        // Primeiro inserimos só no DAO a entrada para simular
+        await repository.addMealEntry(tEntry, tDate);
 
-      await repository.getDailyMeals(tDate);
-      // SQLite vai falhar na foreign key ou o join retornará vazio
-      // Vamos assumir que na implementação correta, o banco deve ter o food item antes,
-      // mas como addMealEntry insere o entry...
-      // Esperamos testar o sucesso depois de inserir tudo certinho.
-    });
+        await repository.getDailyMeals(tDate);
+        // SQLite vai falhar na foreign key ou o join retornará vazio
+        // Vamos assumir que na implementação correta, o banco deve ter o food item antes,
+        // mas como addMealEntry insere o entry...
+        // Esperamos testar o sucesso depois de inserir tudo certinho.
+      },
+    );
   });
 }

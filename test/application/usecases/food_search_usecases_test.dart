@@ -59,68 +59,69 @@ void main() {
 
   group('SearchFoodsUseCase (T024)', () {
     test('deve retornar alimentos que contenham o termo buscado', () async {
-      when(() => mockRepository.searchFoods('arroz'))
-          .thenAnswer((_) async => const Right([tArroz]));
+      when(
+        () => mockRepository.searchFoods('arroz'),
+      ).thenAnswer((_) async => const Right([tArroz]));
 
       final result = await useCase('arroz');
 
       expect(result.isRight(), true);
-      result.fold(
-        (l) => fail('should be right'),
-        (foods) {
-          expect(foods.length, 1);
-          expect(foods.first.name, contains('Arroz'));
-          expect(foods.first.source, FoodSource.tbca);
-        },
-      );
+      result.fold((l) => fail('should be right'), (foods) {
+        expect(foods.length, 1);
+        expect(foods.first.name, contains('Arroz'));
+        expect(foods.first.source, FoodSource.tbca);
+      });
       verify(() => mockRepository.searchFoods('arroz')).called(1);
     });
 
-    test('deve retornar lista vazia quando nenhum alimento corresponder', () async {
-      when(() => mockRepository.searchFoods('xyz'))
-          .thenAnswer((_) async => const Right([]));
+    test(
+      'deve retornar lista vazia quando nenhum alimento corresponder',
+      () async {
+        when(
+          () => mockRepository.searchFoods('xyz'),
+        ).thenAnswer((_) async => const Right([]));
 
-      final result = await useCase('xyz');
+        final result = await useCase('xyz');
 
-      expect(result.isRight(), true);
-      result.fold(
-        (l) => fail('should be right'),
-        (foods) => expect(foods, isEmpty),
-      );
-    });
+        expect(result.isRight(), true);
+        result.fold(
+          (l) => fail('should be right'),
+          (foods) => expect(foods, isEmpty),
+        );
+      },
+    );
 
     test('deve filtrar alimentos por fonte nutricional (TBCA)', () async {
-      when(() => mockRepository.searchFoods('', source: FoodSource.tbca))
-          .thenAnswer((_) async => const Right([tArroz, tFeijao]));
+      when(
+        () => mockRepository.searchFoods('', source: FoodSource.tbca),
+      ).thenAnswer((_) async => const Right([tArroz, tFeijao]));
 
       final result = await useCase('', source: FoodSource.tbca);
 
       expect(result.isRight(), true);
-      result.fold(
-        (l) => fail('should be right'),
-        (foods) {
-          expect(foods.length, 2);
-          for (final f in foods) {
-            expect(f.source, FoodSource.tbca);
-          }
-        },
-      );
+      result.fold((l) => fail('should be right'), (foods) {
+        expect(foods.length, 2);
+        for (final f in foods) {
+          expect(f.source, FoodSource.tbca);
+        }
+      });
     });
 
-    test('deve filtrar por fonte USDA e retornar apenas alimentos dessa fonte', () async {
-      when(() => mockRepository.searchFoods('chicken', source: FoodSource.usda))
-          .thenAnswer((_) async => const Right([tChicken]));
+    test(
+      'deve filtrar por fonte USDA e retornar apenas alimentos dessa fonte',
+      () async {
+        when(
+          () => mockRepository.searchFoods('chicken', source: FoodSource.usda),
+        ).thenAnswer((_) async => const Right([tChicken]));
 
-      final result = await useCase('chicken', source: FoodSource.usda);
+        final result = await useCase('chicken', source: FoodSource.usda);
 
-      expect(result.isRight(), true);
-      result.fold(
-        (l) => fail('should be right'),
-        (foods) {
+        expect(result.isRight(), true);
+        result.fold((l) => fail('should be right'), (foods) {
           expect(foods.length, 1);
           expect(foods.first.source, FoodSource.usda);
-        },
-      );
-    });
+        });
+      },
+    );
   });
 }

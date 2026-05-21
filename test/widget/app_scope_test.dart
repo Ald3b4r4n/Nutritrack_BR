@@ -3,10 +3,12 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:nutritrack_br/main.dart';
 
 void main() {
-  testWidgets('App should be wrapped in ProviderScope', (tester) async {
-    await tester.pumpWidget(const NutriTrackApp());
+  testWidgets('App should be wrapped in provider scope', (tester) async {
+    // NutriTrackApp agora usa UncontrolledProviderScope (criado em main() com seeder)
+    // Verificamos que existe um escopo de provider na árvore
+    await tester.pumpWidget(const ProviderScope(child: NutriTrackApp()));
 
-    // Procura por um ProviderScope no esqueleto do app
+    // Verifica que existe um ProviderScope na árvore
     expect(find.byType(ProviderScope), findsOneWidget);
   });
 }

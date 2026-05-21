@@ -28,7 +28,7 @@ void main() {
     updateUseCase = UpdateMealEntryUseCase(mockRepository);
     removeUseCase = RemoveMealEntryUseCase(mockRepository);
     getDailyUseCase = GetDailyMealsUseCase(mockRepository);
-    
+
     registerFallbackValue(
       MealEntry(
         id: '1',
@@ -71,40 +71,43 @@ void main() {
 
     final tDetails = MealEntryDetails(entry: tEntry, foodItem: tFood);
 
-    test('deve adicionar um alimento e calcular os macros corretamente na entidade Details', () async {
-      when(() => mockRepository.addMealEntry(any(), any()))
-          .thenAnswer((_) async => Right(tEntry));
+    test(
+      'deve adicionar um alimento e calcular os macros corretamente na entidade Details',
+      () async {
+        when(
+          () => mockRepository.addMealEntry(any(), any()),
+        ).thenAnswer((_) async => Right(tEntry));
 
-      final result = await addUseCase(entry: tEntry, date: tDate);
+        final result = await addUseCase(entry: tEntry, date: tDate);
 
-      expect(result.isRight(), true);
-      verify(() => mockRepository.addMealEntry(tEntry, tDate)).called(1);
+        expect(result.isRight(), true);
+        verify(() => mockRepository.addMealEntry(tEntry, tDate)).called(1);
 
-      // Valida que o MealEntryDetails calcula macros corretamente (130 kcal/100g * 2 = 260)
-      expect(tDetails.calories, 260.0);
-      expect(tDetails.protein, 5.0);
-      expect(tDetails.carbohydrates, 56.0);
-    });
+        // Valida que o MealEntryDetails calcula macros corretamente (130 kcal/100g * 2 = 260)
+        expect(tDetails.calories, 260.0);
+        expect(tDetails.protein, 5.0);
+        expect(tDetails.carbohydrates, 56.0);
+      },
+    );
 
     test('deve recuperar refeições do dia', () async {
-      when(() => mockRepository.getDailyMeals(tDate))
-          .thenAnswer((_) async => Right([tDetails]));
+      when(
+        () => mockRepository.getDailyMeals(tDate),
+      ).thenAnswer((_) async => Right([tDetails]));
 
       final result = await getDailyUseCase(tDate);
 
       expect(result.isRight(), true);
-      result.fold(
-        (l) => fail('should be right'),
-        (meals) {
-          expect(meals.length, 1);
-          expect(meals.first.entry.id, 'e1');
-        },
-      );
+      result.fold((l) => fail('should be right'), (meals) {
+        expect(meals.length, 1);
+        expect(meals.first.entry.id, 'e1');
+      });
     });
 
     test('deve editar uma entrada', () async {
-      when(() => mockRepository.updateMealEntry(any()))
-          .thenAnswer((_) async => Right(tEntry));
+      when(
+        () => mockRepository.updateMealEntry(any()),
+      ).thenAnswer((_) async => Right(tEntry));
 
       final result = await updateUseCase(tEntry);
 
@@ -113,8 +116,9 @@ void main() {
     });
 
     test('deve remover uma entrada', () async {
-      when(() => mockRepository.removeMealEntry('e1'))
-          .thenAnswer((_) async => const Right(null));
+      when(
+        () => mockRepository.removeMealEntry('e1'),
+      ).thenAnswer((_) async => const Right(null));
 
       final result = await removeUseCase('e1');
 

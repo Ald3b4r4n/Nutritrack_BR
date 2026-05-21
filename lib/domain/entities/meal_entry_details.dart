@@ -5,10 +5,7 @@ class MealEntryDetails {
   final MealEntry entry;
   final FoodItem foodItem;
 
-  const MealEntryDetails({
-    required this.entry,
-    required this.foodItem,
-  });
+  const MealEntryDetails({required this.entry, required this.foodItem});
 
   double get calories =>
       foodItem.nutrients.calories * (entry.totalWeightGrams / 100);

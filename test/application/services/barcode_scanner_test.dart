@@ -28,8 +28,9 @@ void main() {
 
   group('BarcodeScanner Adapter (T031)', () {
     test('deve retornar código quando scan for bem-sucedido', () async {
-      when(() => fakeScanner.scan())
-          .thenAnswer((_) async => const BarcodeScanSuccess('7891234567890'));
+      when(
+        () => fakeScanner.scan(),
+      ).thenAnswer((_) async => const BarcodeScanSuccess('7891234567890'));
 
       final result = await fakeScanner.scan();
 
@@ -39,18 +40,19 @@ void main() {
 
     test('deve retornar falha quando permissão for negada', () async {
       when(() => fakeScanner.scan()).thenAnswer(
-          (_) async => const BarcodeScanFailure('Permissão de câmera negada'));
+        (_) async => const BarcodeScanFailure('Permissão de câmera negada'),
+      );
 
       final result = await fakeScanner.scan();
 
       expect(result, isA<BarcodeScanFailure>());
-      expect((result as BarcodeScanFailure).reason,
-          contains('Permissão'));
+      expect((result as BarcodeScanFailure).reason, contains('Permissão'));
     });
 
     test('deve retornar falha quando câmera não estiver disponível', () async {
       when(() => fakeScanner.scan()).thenAnswer(
-          (_) async => const BarcodeScanFailure('Câmera indisponível'));
+        (_) async => const BarcodeScanFailure('Câmera indisponível'),
+      );
 
       final result = await fakeScanner.scan();
 
@@ -66,24 +68,23 @@ void main() {
         scannedAt: DateTime(2023, 10, 10),
       );
 
-      when(() => mockRepository.findByBarcode('7891234567890'))
-          .thenAnswer((_) async => Right(entity));
+      when(
+        () => mockRepository.findByBarcode('7891234567890'),
+      ).thenAnswer((_) async => Right(entity));
 
       final result = await mockRepository.findByBarcode('7891234567890');
 
       expect(result.isRight(), true);
-      result.fold(
-        (l) => fail('should be right'),
-        (found) {
-          expect(found, isNotNull);
-          expect(found!.foodItemId, 'tbca-001');
-        },
-      );
+      result.fold((l) => fail('should be right'), (found) {
+        expect(found, isNotNull);
+        expect(found!.foodItemId, 'tbca-001');
+      });
     });
 
     test('deve retornar null quando barcode não existir no banco', () async {
-      when(() => mockRepository.findByBarcode('0000000000000'))
-          .thenAnswer((_) async => const Right(null));
+      when(
+        () => mockRepository.findByBarcode('0000000000000'),
+      ).thenAnswer((_) async => const Right(null));
 
       final result = await mockRepository.findByBarcode('0000000000000');
 
@@ -101,19 +102,17 @@ void main() {
         scannedAt: DateTime(2023, 10, 10),
       );
 
-      when(() => mockRepository.linkBarcode(any()))
-          .thenAnswer((_) async => Right(entity));
+      when(
+        () => mockRepository.linkBarcode(any()),
+      ).thenAnswer((_) async => Right(entity));
 
       final result = await mockRepository.linkBarcode(entity);
 
       expect(result.isRight(), true);
-      result.fold(
-        (l) => fail('should be right'),
-        (saved) {
-          expect(saved.barcode, '7891234567890');
-          expect(saved.foodItemId, 'custom-001');
-        },
-      );
+      result.fold((l) => fail('should be right'), (saved) {
+        expect(saved.barcode, '7891234567890');
+        expect(saved.foodItemId, 'custom-001');
+      });
     });
   });
 }

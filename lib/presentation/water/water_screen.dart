@@ -21,31 +21,49 @@ class WaterScreen extends ConsumerWidget {
         child: Column(
           children: [
             // Progresso visual
-            const _WaterProgressIndicator(
-              currentMl: 0,
-              goalMl: _dailyGoalMl,
-            ),
+            const _WaterProgressIndicator(currentMl: 0, goalMl: _dailyGoalMl),
             const SizedBox(height: 32),
-            Text(
-              'Adicionar água',
-              style: theme.textTheme.titleMedium,
-            ),
+            Text('Adicionar água', style: theme.textTheme.titleMedium),
             const SizedBox(height: 16),
             // Botões rápidos
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                _QuickAddButton(label: '+200 ml', amountMl: 200, onPressed: () {}),
-                _QuickAddButton(label: '+300 ml', amountMl: 300, onPressed: () {}),
-                _QuickAddButton(label: '+500 ml', amountMl: 500, onPressed: () {}),
+                Semantics(
+                  label: 'Adicionar 200 mililitros de água',
+                  child: _QuickAddButton(
+                    label: '+200 ml',
+                    amountMl: 200,
+                    onPressed: () {},
+                  ),
+                ),
+                Semantics(
+                  label: 'Adicionar 300 mililitros de água',
+                  child: _QuickAddButton(
+                    label: '+300 ml',
+                    amountMl: 300,
+                    onPressed: () {},
+                  ),
+                ),
+                Semantics(
+                  label: 'Adicionar 500 mililitros de água',
+                  child: _QuickAddButton(
+                    label: '+500 ml',
+                    amountMl: 500,
+                    onPressed: () {},
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 16),
             // Valor personalizado
-            OutlinedButton.icon(
-              onPressed: () {},
-              icon: const Icon(Icons.edit),
-              label: const Text('Valor personalizado'),
+            Semantics(
+              label: 'Inserir valor personalizado de água',
+              child: OutlinedButton.icon(
+                onPressed: () {},
+                icon: const Icon(Icons.edit),
+                label: const Text('Valor personalizado'),
+              ),
             ),
             const Spacer(),
             Text(
@@ -88,16 +106,20 @@ class _WaterProgressIndicator extends StatelessWidget {
               CircularProgressIndicator(
                 value: progress,
                 strokeWidth: 12,
-                backgroundColor:
-                    theme.colorScheme.primaryContainer.withAlpha(80),
+                backgroundColor: theme.colorScheme.primaryContainer.withAlpha(
+                  80,
+                ),
                 color: theme.colorScheme.primary,
               ),
               Center(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(Icons.water_drop,
-                        size: 32, color: theme.colorScheme.primary),
+                    Icon(
+                      Icons.water_drop,
+                      size: 32,
+                      color: theme.colorScheme.primary,
+                    ),
                     const SizedBox(height: 4),
                     Text(
                       '$percentage%',
@@ -112,10 +134,7 @@ class _WaterProgressIndicator extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 12),
-        Text(
-          '$currentMl / $goalMl ml',
-          style: theme.textTheme.bodyLarge,
-        ),
+        Text('$currentMl / $goalMl ml', style: theme.textTheme.bodyLarge),
       ],
     );
   }
@@ -134,9 +153,6 @@ class _QuickAddButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FilledButton.tonal(
-      onPressed: onPressed,
-      child: Text(label),
-    );
+    return FilledButton.tonal(onPressed: onPressed, child: Text(label));
   }
 }

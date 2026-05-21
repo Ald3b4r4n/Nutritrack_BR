@@ -11,19 +11,22 @@ class GetActiveMealPlanUseCase {
 
   Future<Either<Failure, FullMealPlan?>> call() async {
     final planResult = await repository.getActiveMealPlan();
-    if (planResult.isLeft()) return Left(planResult.fold((l) => l, (r) => throw Exception()));
+    if (planResult.isLeft())
+      return Left(planResult.fold((l) => l, (r) => throw Exception()));
     final plan = planResult.fold((l) => throw Exception(), (r) => r);
 
     if (plan == null) return const Right(null);
 
     final daysResult = await repository.getMealPlanDays(plan.id);
-    if (daysResult.isLeft()) return Left(daysResult.fold((l) => l, (r) => throw Exception()));
+    if (daysResult.isLeft())
+      return Left(daysResult.fold((l) => l, (r) => throw Exception()));
     final days = daysResult.fold((l) => throw Exception(), (r) => r);
 
     final entries = <MealPlanEntry>[];
     for (final day in days) {
       final entriesResult = await repository.getMealPlanEntries(day.id);
-      if (entriesResult.isLeft()) return Left(entriesResult.fold((l) => l, (r) => throw Exception()));
+      if (entriesResult.isLeft())
+        return Left(entriesResult.fold((l) => l, (r) => throw Exception()));
       entries.addAll(entriesResult.fold((l) => throw Exception(), (r) => r));
     }
 

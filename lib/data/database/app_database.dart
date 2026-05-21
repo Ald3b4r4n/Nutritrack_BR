@@ -39,14 +39,7 @@ part 'app_database.g.dart';
     MealPlanDays,
     MealPlanEntries,
   ],
-  daos: [
-    BarcodeDao,
-    FoodDao,
-    MealDiaryDao,
-    MealPlanDao,
-    WaterDao,
-    WeightDao,
-  ],
+  daos: [BarcodeDao, FoodDao, MealDiaryDao, MealPlanDao, WaterDao, WeightDao],
 )
 class AppDatabase extends _$AppDatabase {
   AppDatabase(super.e);

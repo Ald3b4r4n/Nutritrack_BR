@@ -7,9 +7,7 @@ void main() {
   group('Tela de Busca e Cadastro de Alimentos (T028)', () {
     testWidgets('deve exibir campo de busca', (tester) async {
       await tester.pumpWidget(
-        const ProviderScope(
-          child: MaterialApp(home: FoodSearchScreen()),
-        ),
+        const ProviderScope(child: MaterialApp(home: FoodSearchScreen())),
       );
 
       expect(find.byType(TextField), findsOneWidget);
@@ -17,9 +15,7 @@ void main() {
 
     testWidgets('deve exibir botão Criar novo alimento', (tester) async {
       await tester.pumpWidget(
-        const ProviderScope(
-          child: MaterialApp(home: FoodSearchScreen()),
-        ),
+        const ProviderScope(child: MaterialApp(home: FoodSearchScreen())),
       );
 
       expect(find.text('Criar novo'), findsOneWidget);

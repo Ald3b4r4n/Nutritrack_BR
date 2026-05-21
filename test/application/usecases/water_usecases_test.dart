@@ -39,43 +39,42 @@ void main() {
         createdAt: tDate,
       );
 
-      when(() => mockRepository.addWaterLog(any()))
-          .thenAnswer((_) async => Right(tLog));
+      when(
+        () => mockRepository.addWaterLog(any()),
+      ).thenAnswer((_) async => Right(tLog));
 
       final result = await addUseCase(tLog);
 
       expect(result.isRight(), true);
-      result.fold(
-        (l) => fail('should be right'),
-        (log) {
-          expect(log.amountMl, 200);
-        },
-      );
+      result.fold((l) => fail('should be right'), (log) {
+        expect(log.amountMl, 200);
+      });
     });
 
-    test('deve somar registros diários (200ml + 300ml = 500ml contra meta)', () async {
-      final tLog1 = WaterLog(
-        id: 'w1',
-        amountMl: 200,
-        date: tDate,
-        createdAt: tDate,
-      );
-      final tLog2 = WaterLog(
-        id: 'w2',
-        amountMl: 300,
-        date: tDate,
-        createdAt: tDate,
-      );
+    test(
+      'deve somar registros diários (200ml + 300ml = 500ml contra meta)',
+      () async {
+        final tLog1 = WaterLog(
+          id: 'w1',
+          amountMl: 200,
+          date: tDate,
+          createdAt: tDate,
+        );
+        final tLog2 = WaterLog(
+          id: 'w2',
+          amountMl: 300,
+          date: tDate,
+          createdAt: tDate,
+        );
 
-      when(() => mockRepository.getDailyWaterLogs(tDate))
-          .thenAnswer((_) async => Right([tLog1, tLog2]));
+        when(
+          () => mockRepository.getDailyWaterLogs(tDate),
+        ).thenAnswer((_) async => Right([tLog1, tLog2]));
 
-      final result = await getDailyUseCase(tDate);
+        final result = await getDailyUseCase(tDate);
 
-      expect(result.isRight(), true);
-      result.fold(
-        (l) => fail('should be right'),
-        (logs) {
+        expect(result.isRight(), true);
+        result.fold((l) => fail('should be right'), (logs) {
           final totalMl = logs.fold<int>(0, (sum, log) => sum + log.amountMl);
           expect(totalMl, 500);
 
@@ -83,25 +82,26 @@ void main() {
           const waterGoalMl = 2000;
           expect(totalMl < waterGoalMl, true);
           expect(totalMl / waterGoalMl, closeTo(0.25, 0.01));
-        },
-      );
-    });
+        });
+      },
+    );
 
-    test('deve retornar lista vazia quando não houver registros no dia', () async {
-      when(() => mockRepository.getDailyWaterLogs(tDate))
-          .thenAnswer((_) async => const Right([]));
+    test(
+      'deve retornar lista vazia quando não houver registros no dia',
+      () async {
+        when(
+          () => mockRepository.getDailyWaterLogs(tDate),
+        ).thenAnswer((_) async => const Right([]));
 
-      final result = await getDailyUseCase(tDate);
+        final result = await getDailyUseCase(tDate);
 
-      expect(result.isRight(), true);
-      result.fold(
-        (l) => fail('should be right'),
-        (logs) {
+        expect(result.isRight(), true);
+        result.fold((l) => fail('should be right'), (logs) {
           expect(logs, isEmpty);
           final totalMl = logs.fold<int>(0, (sum, log) => sum + log.amountMl);
           expect(totalMl, 0);
-        },
-      );
-    });
+        });
+      },
+    );
   });
 }

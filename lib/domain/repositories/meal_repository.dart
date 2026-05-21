@@ -8,7 +8,10 @@ abstract class MealRepository {
   Future<Either<Failure, List<MealEntryDetails>>> getDailyMeals(DateTime date);
 
   /// Adiciona uma entrada ao diário (cria o MealRecord se não existir)
-  Future<Either<Failure, MealEntry>> addMealEntry(MealEntry entry, DateTime date);
+  Future<Either<Failure, MealEntry>> addMealEntry(
+    MealEntry entry,
+    DateTime date,
+  );
 
   /// Edita uma entrada existente
   Future<Either<Failure, MealEntry>> updateMealEntry(MealEntry entry);

@@ -21,11 +21,13 @@ void main() {
     createUseCase = CreateMealPlanUseCase(mockRepository);
     getActiveUseCase = GetActiveMealPlanUseCase(mockRepository);
 
-    registerFallbackValue(const MealPlan(id: '1', name: 'Plan', isActive: true));
+    registerFallbackValue(
+      const MealPlan(id: '1', name: 'Plan', isActive: true),
+    );
   });
 
   group('Meal Plan Usecases (T043)', () {
-    final tPlan = const MealPlan(id: 'p1', name: 'Plano Base', isActive: true);
+    const tPlan = MealPlan(id: 'p1', name: 'Plano Base', isActive: true);
     const tDays = [
       MealPlanDay(id: 'd1', mealPlanId: 'p1', dayOfWeek: 1), // Segunda
     ];
@@ -43,12 +45,15 @@ void main() {
     final tFullPlan = FullMealPlan(plan: tPlan, days: tDays, entries: tEntries);
 
     test('deve criar um plano manual com dias e metas por refeição', () async {
-      when(() => mockRepository.saveMealPlan(any()))
-          .thenAnswer((_) async => Right(tPlan));
-      when(() => mockRepository.saveMealPlanDays(any()))
-          .thenAnswer((_) async => Right(tDays));
-      when(() => mockRepository.saveMealPlanEntries(any()))
-          .thenAnswer((_) async => Right(tEntries));
+      when(
+        () => mockRepository.saveMealPlan(any()),
+      ).thenAnswer((_) async => const Right(tPlan));
+      when(
+        () => mockRepository.saveMealPlanDays(any()),
+      ).thenAnswer((_) async => const Right(tDays));
+      when(
+        () => mockRepository.saveMealPlanEntries(any()),
+      ).thenAnswer((_) async => const Right(tEntries));
 
       final result = await createUseCase(tFullPlan);
 
@@ -59,31 +64,32 @@ void main() {
     });
 
     test('deve buscar o plano ativo com seus dias e entradas', () async {
-      when(() => mockRepository.getActiveMealPlan())
-          .thenAnswer((_) async => Right(tPlan));
-      when(() => mockRepository.getMealPlanDays('p1'))
-          .thenAnswer((_) async => Right(tDays));
-      when(() => mockRepository.getMealPlanEntries('d1'))
-          .thenAnswer((_) async => Right(tEntries));
+      when(
+        () => mockRepository.getActiveMealPlan(),
+      ).thenAnswer((_) async => const Right(tPlan));
+      when(
+        () => mockRepository.getMealPlanDays('p1'),
+      ).thenAnswer((_) async => const Right(tDays));
+      when(
+        () => mockRepository.getMealPlanEntries('d1'),
+      ).thenAnswer((_) async => const Right(tEntries));
 
       final result = await getActiveUseCase();
 
       expect(result.isRight(), true);
-      result.fold(
-        (l) => fail('should be right'),
-        (fullPlan) {
-          expect(fullPlan, isNotNull);
-          expect(fullPlan!.plan.id, 'p1');
-          expect(fullPlan.days.length, 1);
-          expect(fullPlan.entries.length, 1);
-          expect(fullPlan.entries.first.mealType, MealType.breakfast);
-        },
-      );
+      result.fold((l) => fail('should be right'), (fullPlan) {
+        expect(fullPlan, isNotNull);
+        expect(fullPlan!.plan.id, 'p1');
+        expect(fullPlan.days.length, 1);
+        expect(fullPlan.entries.length, 1);
+        expect(fullPlan.entries.first.mealType, MealType.breakfast);
+      });
     });
 
     test('deve retornar null se não houver plano ativo', () async {
-      when(() => mockRepository.getActiveMealPlan())
-          .thenAnswer((_) async => const Right(null));
+      when(
+        () => mockRepository.getActiveMealPlan(),
+      ).thenAnswer((_) async => const Right(null));
 
       final result = await getActiveUseCase();
 

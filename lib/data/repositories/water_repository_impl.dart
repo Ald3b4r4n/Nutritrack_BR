@@ -22,7 +22,8 @@ class WaterRepositoryImpl implements WaterRepository {
 
   @override
   Future<Either<Failure, List<WaterLog>>> getDailyWaterLogs(
-      DateTime date) async {
+    DateTime date,
+  ) async {
     try {
       final logs = await dao.getDailyLogs(date);
       return Right(logs);

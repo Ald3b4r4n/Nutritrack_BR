@@ -11,8 +11,7 @@ class BarcodeRepositoryImpl implements BarcodeRepository {
   BarcodeRepositoryImpl(this.dao);
 
   @override
-  Future<Either<Failure, BarcodeEntity?>> findByBarcode(
-      String barcode) async {
+  Future<Either<Failure, BarcodeEntity?>> findByBarcode(String barcode) async {
     try {
       final entity = await dao.findByBarcode(barcode);
       return Right(entity);
@@ -23,7 +22,8 @@ class BarcodeRepositoryImpl implements BarcodeRepository {
 
   @override
   Future<Either<Failure, BarcodeEntity>> linkBarcode(
-      BarcodeEntity entity) async {
+    BarcodeEntity entity,
+  ) async {
     try {
       final saved = await dao.linkBarcode(entity);
       return Right(saved);

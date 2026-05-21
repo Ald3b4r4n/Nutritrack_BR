@@ -298,12 +298,12 @@
   - **Arquivos-alvo**: `lib/application/providers/dashboard_provider.dart`
   - **Dependências**: T046
   - **Critério de aceite**: Provider retorna objeto de resumo do dia de forma eficiente. (Green)
-- [ ] **T048** Implementar Tela Inicial (Dashboard)
+- [x] **T048** Implementar Tela Inicial (Dashboard)
   - **Tipo**: Implementação
   - **Arquivos-alvo**: `lib/presentation/dashboard/dashboard_screen.dart`
   - **Dependências**: T047
   - **Critério de aceite**: Renderização de anéis de progresso, atalhos rápidos e resumo consolidado, utilizando assets ilustrativos gerados.
-- [ ] **T049** Build APK de Validação (Dashboard e Planos)
+- [x] **T049** Build APK de Validação (Dashboard e Planos)
   - **Tipo**: Build
   - **Arquivos-alvo**: `build/app/outputs/flutter-apk/app-debug.apk`
   - **Dependências**: T045, T048
@@ -313,12 +313,12 @@
 
 ## Fase 11 — Acessibilidade, performance e privacidade
 
-- [ ] **T050** Auditoria de Acessibilidade (Labels e Contraste)
+- [x] **T050** Auditoria de Acessibilidade (Labels e Contraste)
   - **Tipo**: Refatoração
   - **Arquivos-alvo**: `lib/presentation/`
   - **Dependências**: T048
   - **Critério de aceite**: Adição de `Semantics()` em áreas cruciais. Ferramentas de análise do Flutter não reportam quebra de contraste.
-- [ ] **T051** Remoção de Logs Sensíveis e Otimização
+- [x] **T051** Remoção de Logs Sensíveis e Otimização
   - **Tipo**: Refatoração
   - **Arquivos-alvo**: `lib/core/`
   - **Dependências**: T050
@@ -328,13 +328,13 @@
 
 ## Fase 12 — APK de validação, documentação final e checklist
 
-- [ ] **T052** Geração do APK de Release Final
+- [x] **T052** Geração do APK de Release Final
   - **Tipo**: Build
   - **Arquivos-alvo**: `build/app/outputs/flutter-apk/app-release.apk`
   - **Dependências**: T051
   - **Critério de aceite**: Todos os testes automáticos (unitários, widget e integrations) executados com sucesso `flutter test` e build realizado.
   - **Comando**: `flutter analyze && flutter test && flutter build apk --release`
-- [ ] **T053** Preencher Resumo de Execução do Agente
+- [x] **T053** Preencher Resumo de Execução do Agente
   - **Tipo**: Documentação
   - **Arquivos-alvo**: N/A (Console/Artifacts)
   - **Dependências**: T052

@@ -36,28 +36,28 @@ void main() {
       );
     });
 
-    test('deve retornar histórico ordenado por data (mais recente primeiro)', () async {
-      await repository.addWeightLog(
-        WeightLog(id: 'wt1', weightKg: 72.5, date: DateTime(2023, 10, 10)),
-      );
-      await repository.addWeightLog(
-        WeightLog(id: 'wt2', weightKg: 72.0, date: DateTime(2023, 10, 11)),
-      );
-      await repository.addWeightLog(
-        WeightLog(id: 'wt3', weightKg: 71.0, date: DateTime(2023, 10, 12)),
-      );
+    test(
+      'deve retornar histórico ordenado por data (mais recente primeiro)',
+      () async {
+        await repository.addWeightLog(
+          WeightLog(id: 'wt1', weightKg: 72.5, date: DateTime(2023, 10, 10)),
+        );
+        await repository.addWeightLog(
+          WeightLog(id: 'wt2', weightKg: 72.0, date: DateTime(2023, 10, 11)),
+        );
+        await repository.addWeightLog(
+          WeightLog(id: 'wt3', weightKg: 71.0, date: DateTime(2023, 10, 12)),
+        );
 
-      final result = await repository.getWeightHistory();
-      expect(result.isRight(), true);
-      result.fold(
-        (l) => fail('should be right'),
-        (history) {
+        final result = await repository.getWeightHistory();
+        expect(result.isRight(), true);
+        result.fold((l) => fail('should be right'), (history) {
           expect(history.length, 3);
           expect(history.first.weightKg, 71.0); // mais recente
           expect(history.last.weightKg, 72.5); // mais antigo
-        },
-      );
-    });
+        });
+      },
+    );
 
     test('deve preservar notes quando fornecido', () async {
       final log = WeightLog(

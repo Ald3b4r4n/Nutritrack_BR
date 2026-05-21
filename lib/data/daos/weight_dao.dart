@@ -12,28 +12,32 @@ class WeightDao extends DatabaseAccessor<AppDatabase> with _$WeightDaoMixin {
 
   /// Insere um registro de peso.
   Future<domain.WeightLog> insertLog(domain.WeightLog log) async {
-    await into(weightLogs).insert(WeightLogsCompanion(
-      id: Value(log.id),
-      weightKg: Value(log.weightKg),
-      date: Value(log.date),
-      notes: log.notes != null ? Value(log.notes!) : const Value.absent(),
-    ));
+    await into(weightLogs).insert(
+      WeightLogsCompanion(
+        id: Value(log.id),
+        weightKg: Value(log.weightKg),
+        date: Value(log.date),
+        notes: log.notes != null ? Value(log.notes!) : const Value.absent(),
+      ),
+    );
     return log;
   }
 
   /// Obtém histórico de peso ordenado por data (mais recente primeiro).
   Future<List<domain.WeightLog>> getHistory() async {
-    final rows = await (select(weightLogs)
-          ..orderBy([(t) => OrderingTerm.desc(t.date)]))
-        .get();
+    final rows = await (select(
+      weightLogs,
+    )..orderBy([(t) => OrderingTerm.desc(t.date)])).get();
 
     return rows
-        .map((r) => domain.WeightLog(
-              id: r.id,
-              weightKg: r.weightKg,
-              date: r.date,
-              notes: r.notes,
-            ))
+        .map(
+          (r) => domain.WeightLog(
+            id: r.id,
+            weightKg: r.weightKg,
+            date: r.date,
+            notes: r.notes,
+          ),
+        )
         .toList();
   }
 

@@ -11,32 +11,33 @@ import 'package:nutritrack_br/domain/value_objects/meal_type.dart';
 part 'meal_diary_dao.g.dart';
 
 @DriftAccessor(tables: [MealRecords, MealEntries, FoodItems])
-class MealDiaryDao extends DatabaseAccessor<AppDatabase> with _$MealDiaryDaoMixin {
+class MealDiaryDao extends DatabaseAccessor<AppDatabase>
+    with _$MealDiaryDaoMixin {
   MealDiaryDao(super.db);
 
   /// Obtém o diário de um dia (buscando ou criando)
   Future<MealRecord> _getOrCreateMealRecord(DateTime date) async {
     final startOfDay = DateTime(date.year, date.month, date.day);
-    
-    final existing = await (select(mealRecords)
-          ..where((t) => t.date.equals(startOfDay)))
-        .getSingleOrNull();
+
+    final existing = await (select(
+      mealRecords,
+    )..where((t) => t.date.equals(startOfDay))).getSingleOrNull();
 
     if (existing != null) return existing;
 
     final newId = 'record-${startOfDay.millisecondsSinceEpoch}';
-    final companion = MealRecordsCompanion.insert(
-      id: newId,
-      date: startOfDay,
-    );
+    final companion = MealRecordsCompanion.insert(id: newId, date: startOfDay);
     await into(mealRecords).insert(companion);
     return MealRecord(id: newId, date: startOfDay);
   }
 
   /// Adiciona uma entrada ao diário
-  Future<domain.MealEntry> addEntry(domain.MealEntry entry, DateTime date) async {
+  Future<domain.MealEntry> addEntry(
+    domain.MealEntry entry,
+    DateTime date,
+  ) async {
     final record = await _getOrCreateMealRecord(date);
-    
+
     final companion = MealEntriesCompanion.insert(
       id: entry.id,
       mealRecordId: record.id,
@@ -49,7 +50,7 @@ class MealDiaryDao extends DatabaseAccessor<AppDatabase> with _$MealDiaryDaoMixi
     );
 
     await into(mealEntries).insert(companion);
-    
+
     return entry.copyWith(mealRecordId: record.id);
   }
 
@@ -61,7 +62,9 @@ class MealDiaryDao extends DatabaseAccessor<AppDatabase> with _$MealDiaryDaoMixi
       servingWeightGrams: Value(entry.servingWeightGrams),
     );
 
-    await (update(mealEntries)..where((t) => t.id.equals(entry.id))).write(companion);
+    await (update(
+      mealEntries,
+    )..where((t) => t.id.equals(entry.id))).write(companion);
     return entry;
   }
 
@@ -73,10 +76,10 @@ class MealDiaryDao extends DatabaseAccessor<AppDatabase> with _$MealDiaryDaoMixi
   /// Obtém as entradas do dia, com os FoodItems correspondentes
   Future<List<MealEntryDetails>> getDailyMeals(DateTime date) async {
     final startOfDay = DateTime(date.year, date.month, date.day);
-    
-    final record = await (select(mealRecords)
-          ..where((t) => t.date.equals(startOfDay)))
-        .getSingleOrNull();
+
+    final record = await (select(
+      mealRecords,
+    )..where((t) => t.date.equals(startOfDay))).getSingleOrNull();
 
     if (record == null) return [];
 
@@ -93,7 +96,9 @@ class MealDiaryDao extends DatabaseAccessor<AppDatabase> with _$MealDiaryDaoMixi
       final entry = domain.MealEntry(
         id: entryRow.id,
         mealRecordId: entryRow.mealRecordId,
-        mealType: MealType.values.firstWhere((e) => e.name == entryRow.mealType),
+        mealType: MealType.values.firstWhere(
+          (e) => e.name == entryRow.mealType,
+        ),
         foodItemId: entryRow.foodItemId,
         quantity: entryRow.quantity,
         servingDescription: entryRow.servingDescription,

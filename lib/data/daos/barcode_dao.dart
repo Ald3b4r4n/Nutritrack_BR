@@ -7,15 +7,14 @@ part 'barcode_dao.g.dart';
 
 /// DAO dedicado para operações de barcode.
 @DriftAccessor(tables: [BarcodeEntities])
-class BarcodeDao extends DatabaseAccessor<AppDatabase>
-    with _$BarcodeDaoMixin {
+class BarcodeDao extends DatabaseAccessor<AppDatabase> with _$BarcodeDaoMixin {
   BarcodeDao(super.db);
 
   /// Busca um vínculo barcode→alimento.
   Future<domain.BarcodeEntity?> findByBarcode(String barcode) async {
-    final row = await (select(barcodeEntities)
-          ..where((t) => t.barcode.equals(barcode)))
-        .getSingleOrNull();
+    final row = await (select(
+      barcodeEntities,
+    )..where((t) => t.barcode.equals(barcode))).getSingleOrNull();
     if (row == null) return null;
     return domain.BarcodeEntity(
       barcode: row.barcode,
